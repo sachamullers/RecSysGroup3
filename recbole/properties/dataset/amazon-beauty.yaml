@@ -38,8 +38,8 @@ relation_kg_num_interval: ~     # (str) Relation interval for filtering kg, such
 #     inter: [user_id, item_id, rating, timestamp]
 load_col: 
     inter: [user_id, item_id, rating, timestamp] 
-    item: [item_id, description, llm_embedding]
-title: description
+    item: [item_id, title, llm_embedding]
+title: title
 emb_init: llm_embedding
 unload_col: ~                   # (dict) The suffix of atomic files: (list) field names NOT to be loaded.
 unused_col: ~                   # (dict) The suffix of atomic files: (list) field names which are loaded but not used.
