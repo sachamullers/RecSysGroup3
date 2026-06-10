@@ -50,8 +50,29 @@ if __name__ == "__main__":
     )
     
     if args.nproc == 1 and args.world_size <= 0:
+        config_dict = {
+            "gpu_id": args.gpu,
+            "learning_rate": args.lr,
+            "weight_decay": args.weight_decay,
+        }
+
+        if args.opt is not None:
+            config_dict["emb_selection"] = args.opt
+
+        if args.suffix is not None:
+            config_dict["suffix"] = args.suffix
+
+        if args.tem is not None:
+            config_dict["tem"] = args.tem
+
         run_recbole(
-            args=args, model=args.model, dataset=args.dataset, config_file_list=config_file_list)
+            args=args,
+            model=args.model,
+            dataset=args.dataset,
+            config_file_list=config_file_list,
+            config_dict=config_dict,
+        )
+        
     else:
         if args.world_size == -1:
             args.world_size = args.nproc
