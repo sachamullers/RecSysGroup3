@@ -27,7 +27,7 @@ def unzip_if_needed(zip_path: Path, work_dir: Path) -> Path:
     return dataset_dir
 
 
-def find_file(dataset_dir: Path, suffix: str) -> Path | None:
+def find_file(dataset_dir: Path, suffix: str):
     candidates = sorted(dataset_dir.rglob(f"*{suffix}"))
     return candidates[0] if candidates else None
 
@@ -83,7 +83,7 @@ def load_interactions(dataset_dir: Path) -> pd.DataFrame:
     return df
 
 
-def load_item_metadata(dataset_dir: Path) -> pd.DataFrame | None:
+def load_item_metadata(dataset_dir: Path):
     item_file = find_file(dataset_dir, ".item")
 
     if item_file is None:
@@ -153,7 +153,7 @@ def make_basic_plots(df: pd.DataFrame, output_dir: Path) -> pd.DataFrame:
     sorted_items = item_counts.sort_values(ascending=False)
     sorted_users = user_counts.sort_values(ascending=False)
 
-    # Definition A: head = top 20% most popular items, tail = bottom 80%.
+    # Head = top 20% most popular items, tail = bottom 80%.
     n_head_top20 = max(1, int(np.ceil(0.20 * num_items)))
     head_top20_items = set(sorted_items.index[:n_head_top20])
     tail_bottom80_items = set(sorted_items.index[n_head_top20:])
@@ -161,7 +161,7 @@ def make_basic_plots(df: pd.DataFrame, output_dir: Path) -> pd.DataFrame:
     head_top20_interactions = df["item_id"].isin(head_top20_items).sum()
     tail_bottom80_interactions = df["item_id"].isin(tail_bottom80_items).sum()
 
-    # Definition B: head = smallest set of popular items covering 80% of interactions.
+    # Head = smallest set of popular items covering 80% of interactions.
     cumulative_interaction_share = sorted_items.cumsum() / sorted_items.sum()
     n_items_covering_80 = int((cumulative_interaction_share < 0.80).sum()) + 1
 
@@ -204,7 +204,7 @@ def make_basic_plots(df: pd.DataFrame, output_dir: Path) -> pd.DataFrame:
 
     summary_df = pd.DataFrame([summary])
 
-    # Saving item popularity table for later metadata joins.
+    
     item_popularity_df = pd.DataFrame({
         "item_id": sorted_items.index,
         "interaction_count": sorted_items.values,
@@ -246,7 +246,7 @@ def make_basic_plots(df: pd.DataFrame, output_dir: Path) -> pd.DataFrame:
     plt.savefig(output_dir / "amazon_beauty_cumulative_interactions.png", dpi=200)
     plt.close()
 
-    # Plot 3: item popularity histogram.
+    # Item popularity histogram.
     plt.figure()
     plt.hist(item_counts.values, bins=50)
     plt.yscale("log")
@@ -275,10 +275,9 @@ def make_basic_plots(df: pd.DataFrame, output_dir: Path) -> pd.DataFrame:
 
     return item_popularity_df
 
-
 def make_metadata_summaries(
     item_popularity_df: pd.DataFrame,
-    item_metadata: pd.DataFrame | None,
+    item_metadata,
     output_dir: Path,
 ) -> None:
     if item_metadata is None:
