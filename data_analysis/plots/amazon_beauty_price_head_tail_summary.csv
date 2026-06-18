@@ -1,0 +1,3 @@
+is_head_top20,num_items,price_available,price_mean,price_median,price_min,price_max
+False,199419,137486,25.77141861716829,15.99,0.01,999.99
+True,49855,44231,23.050144468811467,15.0,0.01,997.0

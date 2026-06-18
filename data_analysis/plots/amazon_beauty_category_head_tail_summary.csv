@@ -1,0 +1,284 @@
+category,num_items,head_top20_items,tail_bottom80_items,mean_interactions,total_interactions
+"('Beauty', 'Skin Care', 'Body', 'Moisturizers', 'Lotions')",11588,2908,8680,9.12763203313773,105771
+"('Beauty', 'Hair Care', 'Shampoos')",8745,2072,6673,8.01177815894797,70063
+"('Beauty', 'Makeup', 'Nails', 'Nail Polish')",10552,1836,8716,6.337282031842305,66871
+"('Beauty', 'Hair Care', 'Conditioners')",6199,1541,4658,8.717857718986933,54042
+"('Beauty', 'Fragrance', ""Women's"", 'Eau de Parfum')",7394,1399,5995,6.623748985664052,48976
+"('Beauty', 'Hair Care', 'Styling Tools', 'Irons', 'Flattening Irons')",2354,711,1643,19.768054375531012,46534
+"('Beauty', 'Bath & Body', 'Cleansers', 'Soaps')",6093,1019,5074,6.408337436402429,39046
+"('Beauty', 'Hair Care', 'Hair & Scalp Treatments')",4081,998,3083,9.436412643959814,38510
+"('Beauty', 'Hair Care', 'Styling Products', 'Creams, Gels & Lotions')",4343,1215,3128,8.782178217821782,38141
+"('Beauty', 'Skin Care', 'Face', 'Cleansers')",4456,1045,3411,8.445915619389588,37635
+"('Beauty', 'Skin Care', 'Face', 'Treatments & Masks')",5124,952,4172,7.135245901639344,36561
+"('Beauty', 'Skin Care', 'Body', 'Moisturizers', 'Oils')",2455,713,1742,14.822810590631365,36390
+"('Beauty', 'Skin Care', 'Face', 'Creams & Moisturizers')",3998,837,3161,8.902201100550275,35591
+"('Beauty', 'Hair Care', 'Styling Tools', 'Hair Dryers')",1579,564,1015,22.391386953768208,35356
+"('Beauty', 'Tools & Accessories', 'Makeup Brushes & Tools', 'Brushes & Applicators')",2448,604,1844,13.420343137254902,32853
+"('Beauty', 'Fragrance', ""Men's"", 'Eau de Toilette')",3472,765,2707,9.011808755760368,31289
+"('Beauty', 'Makeup', 'Face', 'Foundation')",5004,714,4290,5.812350119904076,29085
+"('Beauty', 'Skin Care', 'Face', 'Creams & Moisturizers', 'Fluids & Lotions', 'Lotions')",1694,646,1048,16.155844155844157,27368
+"('Beauty', 'Skin Care', 'Sun', 'Self-Tanners & Bronzers')",2292,639,1653,11.832024432809773,27119
+"('Beauty', 'Tools & Accessories', 'Nail Tools', 'Nail Art Equipment')",1590,388,1202,16.821383647798744,26746
+"('Beauty', 'Makeup', 'Eyes', 'Mascara')",2530,633,1897,10.541897233201581,26671
+"('Beauty', 'Bath & Body', 'Scrubs & Body Treatments', 'Body Scrubs')",3254,734,2520,8.112476951444377,26398
+"('Beauty', 'Bath & Body', 'Cleansers', 'Body Washes')",4797,702,4095,5.389826975192829,25855
+"('Beauty', 'Hair Care', 'Styling Products', 'Hair Sprays')",3425,875,2550,7.388321167883212,25305
+"('Beauty', 'Fragrance', ""Women's"", 'Eau de Toilette')",4424,719,3705,5.702079566003617,25226
+"('Beauty', 'Hair Care', 'Styling Tools', 'Brushes')",2304,542,1762,10.14279513888889,23369
+"('Beauty', 'Hair Care', 'Hair Color', 'Chemical Hair Dyes')",3078,536,2542,7.541260558804418,23212
+"('Beauty', 'Makeup', 'Eyes', 'Eye Shadow')",4651,487,4164,4.976564179746291,23146
+"('Beauty', 'Makeup', 'Lips', 'Lipstick')",5298,556,4742,4.259909399773499,22569
+"('Beauty', 'Hair Care', 'Styling Products', 'Hair Extensions & Wigs', 'Hair Extensions')",3880,569,3311,5.72680412371134,22220
+"('Beauty', 'Hair Care', 'Styling Products', 'Hair Extensions & Wigs', 'Wigs')",4368,526,3842,5.002289377289378,21850
+"('Beauty', 'Hair Care', 'Styling Tools', 'Irons', 'Curling Irons')",1044,340,704,19.518199233716476,20377
+"('Beauty', 'Skin Care', 'Face')",1327,395,932,15.333082140165788,20347
+"('Beauty', 'Skin Care', 'Body', 'Moisturizers', 'Creams')",2391,510,1881,8.278126306984525,19793
+"('Beauty', 'Skin Care', 'Face', 'Oils & Serums')",1401,465,936,13.954318344039972,19550
+"('Beauty', 'Hair Care', 'Shampoo & Conditioner Sets')",2058,453,1605,9.162779397473274,18857
+"('Beauty', 'Skin Care', 'Face', 'Treatments & Masks', 'Masks')",2302,448,1854,8.063423110338835,18562
+"('Beauty', 'Skin Care', 'Hands & Nails', 'Hand Creams & Lotions')",2199,445,1754,7.7498863119599815,17042
+"('Beauty', 'Skin Care', 'Body', 'Moisturizers', 'Body Butter')",1815,388,1427,9.299173553719008,16878
+"('Beauty', 'Skin Care', 'Sun', 'Skin Protection')",2135,500,1635,7.688992974238876,16416
+"('Beauty', 'Hair Care', 'Styling Tools', 'Styling Accessories', 'Headbands')",2994,381,2613,5.2114228456913825,15603
+"('Beauty', 'Makeup', 'Eyes', 'Eyeliner')",2895,391,2504,5.218307426597582,15107
+"('Beauty', 'Tools & Accessories', 'Makeup Brushes & Tools', 'Eyelash Tools', 'Fake Eyelashes & Adhesives')",1534,277,1257,9.479139504563234,14541
+"('Beauty', 'Tools & Accessories', 'Mirrors', 'Makeup Mirrors')",1225,314,911,11.217142857142857,13741
+"('Beauty', 'Hair Care', 'Hair Loss Products', 'Hair Regrowth Treatments')",1004,308,696,13.554780876494023,13609
+"('Beauty', 'Fragrance', ""Men's"", 'Cologne')",1732,343,1389,7.304272517321016,12651
+"('Beauty', 'Makeup', 'Face', 'Powder')",1929,326,1603,6.330741316744427,12212
+"('Beauty', 'Skin Care', 'Sun', 'Skin Protection', 'Sports')",631,269,362,19.350237717908083,12210
+"('Beauty', 'Hair Care', 'Styling Tools', 'Styling Accessories', 'Clips')",2151,259,1892,5.631799163179917,12114
+"('Beauty', 'Makeup', 'Face', 'Concealers & Neutralizers')",1488,264,1224,7.997983870967742,11901
+"('Beauty', 'Makeup', 'Lips', 'Lip Glosses')",3546,248,3298,3.245346869712352,11508
+"('Beauty', 'Hair Care', 'Styling Products', 'Pomades & Waxes')",1234,344,890,8.679902755267422,10711
+"('Beauty', 'Hair Care', 'Styling Products', 'Hair Styling Serums')",1039,287,752,10.280076997112609,10681
+"('Beauty', 'Hair Care', 'Styling Tools', 'Hair Rollers')",629,205,424,16.731319554848966,10524
+"('Beauty', 'Makeup', 'Eyes', 'Eyebrow Color')",933,220,713,11.2475884244373,10494
+"('Beauty', 'Skin Care', 'Face', 'Creams & Moisturizers', 'Fluids & Lotions', 'Fluids')",247,101,146,41.12955465587044,10159
+"('Beauty', 'Skin Care', 'Face', 'Toners & Astringents')",1306,277,1029,7.538284839203675,9845
+"('Beauty', 'Fragrance')",2664,271,2393,3.66966966966967,9776
+"('Beauty', 'Makeup', 'Nails', 'Nail Art')",1480,184,1296,6.5932432432432435,9758
+"('Beauty', 'Tools & Accessories', 'Bags & Cases', 'Cosmetic Bags')",1872,211,1661,4.94017094017094,9248
+"('Beauty', 'Skin Care', 'Face', 'Cleansers', 'Washes')",536,159,377,17.14179104477612,9188
+"('Beauty', 'Skin Care', 'Hands & Nails', 'Hand Soaps')",1384,239,1145,6.283236994219653,8696
+"('Beauty', 'Tools & Accessories', 'Nail Tools', 'Clippers & Trimmers')",720,186,534,12.030555555555555,8662
+"('Beauty', 'Makeup', 'Makeup Sets')",1356,193,1163,6.196902654867257,8403
+"('Beauty', 'Tools & Accessories', 'Nail Tools', 'Nail Files & Buffers')",905,203,702,8.921546961325967,8074
+"('Beauty', 'Makeup', 'Nails', 'Top & Base Coats')",545,159,386,14.741284403669725,8034
+"('Beauty', 'Skin Care')",875,154,721,9.051428571428572,7920
+"('Beauty', 'Skin Care', 'Face', 'Exfoliators & Scrubs', 'Scrubs')",869,226,643,9.11277330264672,7919
+"('Beauty', 'Hair Care', 'Styling Tools', 'Hot-Air Brushes')",99,46,53,78.02020202020202,7724
+"('Beauty', 'Hair Care', 'Styling Products', 'Mousses & Foams')",948,243,705,7.674050632911392,7275
+"('Beauty', 'Makeup', 'Face', 'Foundation Primers')",631,164,467,11.304278922345484,7133
+"('Beauty', 'Skin Care', 'Sun', 'Tanning Oils')",563,164,399,12.566607460035524,7075
+"('Beauty', 'Makeup', 'Face', 'Blush')",1503,173,1330,4.705256154357951,7072
+"('Beauty', 'Hair Care', 'Styling Tools', 'Combs')",1113,207,906,6.182389937106918,6881
+"('Beauty', 'Fragrance', ""Women's"", 'Cologne')",916,181,735,7.37117903930131,6752
+"('Beauty', 'Skin Care', 'Eyes', 'Creams')",464,210,254,14.506465517241379,6731
+"('Beauty', 'Skin Care', 'Face', 'Creams & Moisturizers', 'Night Creams')",643,177,466,10.262830482115085,6599
+"('Beauty', 'Skin Care', 'Sets & Kits')",1481,143,1338,4.436866981769075,6571
+"('Beauty', 'Tools & Accessories', 'Nail Tools', 'Sets & Kits')",1015,194,821,6.4443349753694585,6541
+"('Beauty', 'Skin Care', 'Face', 'Cleansers', 'Cloths & Towelettes')",589,153,436,11.01018675721562,6485
+"('Beauty', 'Skin Care', 'Face', 'Sets & Kits')",520,195,325,12.13076923076923,6308
+"('Beauty', 'Tools & Accessories', 'Mirrors', 'Shower Mirrors')",72,32,40,87.31944444444444,6287
+"('Beauty', 'Tools & Accessories', 'Nail Tools', 'Nail Dryers')",344,120,224,17.816860465116278,6129
+"('Beauty', 'Hair Care', 'Styling Products', 'Curl Enhancers')",573,172,401,10.635253054101222,6094
+"('Beauty', 'Skin Care', 'Face', 'Treatments & Masks', 'Microdermabrasion')",167,57,110,34.538922155688624,5768
+"('Beauty', 'Fragrance', ""Women's"", 'Sets')",2055,166,1889,2.8063260340632605,5767
+"('Beauty', 'Hair Care')",885,155,730,6.4418079096045195,5701
+"('Beauty', 'Tools & Accessories', 'Nail Tools', 'False Nails')",1159,141,1018,4.91458153580673,5696
+"('Beauty', 'Fragrance', ""Women's"", 'Body Sprays')",1135,197,938,4.903083700440528,5565
+"('Beauty', 'Skin Care', 'Eyes', 'Dark Circle Treatments')",794,168,626,6.906801007556675,5484
+"('Beauty', 'Hair Care', 'Styling Tools', 'Styling Accessories', 'Ponytail Holders')",1130,148,982,4.830973451327433,5459
+"('Beauty', 'Tools & Accessories', 'Makeup Brushes & Tools', 'Treatment Tools', 'Face Cleansing Brushes')",209,96,113,25.535885167464116,5337
+"('Beauty', 'Skin Care', 'Hands & Nails', 'Cuticle Care', 'Cuticle Creams & Oils')",358,92,266,14.782122905027933,5292
+"('Beauty', 'Tools & Accessories', 'Makeup Brushes & Tools', 'Puffs, Sponges & Wedges')",307,79,228,17.149837133550488,5265
+"('Beauty', 'Skin Care', 'Hands & Nails', 'Nail Treatments', 'Nail Strengthening')",439,140,299,11.544419134396355,5068
+"('Beauty', 'Bath & Body', 'Bathing Accessories', 'Loofahs, Sponges & Poufs')",588,133,455,8.45578231292517,4972
+"('Beauty', 'Bath & Body', 'Bathing Accessories', 'Bath Brushes')",295,99,196,16.322033898305083,4815
+"('Beauty', 'Makeup', 'Face', 'Bronzers & Highlighters')",897,129,768,5.36231884057971,4810
+"('Beauty', 'Tools & Accessories', 'Bags & Cases', 'Tote Bags')",930,78,852,4.933333333333334,4588
+"('Beauty', 'Bath & Body', 'Bath', 'Minerals & Salts')",764,127,637,5.94109947643979,4539
+"('Beauty', 'Skin Care', 'Eyes', 'Puffiness Treatments')",698,138,560,6.340974212034384,4426
+"('Beauty', 'Tools & Accessories', 'Makeup Brushes & Tools', 'Eyelash Tools', 'Curlers')",308,89,219,13.0487012987013,4019
+"('Beauty', 'Tools & Accessories', 'Bags & Cases', 'Refillable Containers')",502,110,392,7.96613545816733,3999
+"('Beauty', 'Hair Care', 'Styling Tools', 'Scissors')",531,83,448,7.489642184557439,3977
+"('Beauty', 'Skin Care', 'Hands & Nails', 'Nail Treatments', 'Growth Formula')",224,103,121,17.723214285714285,3970
+"('Beauty', 'Makeup', 'Makeup Remover', 'Eyes')",424,105,319,9.242924528301886,3919
+"('Beauty', 'Skin Care', 'Face', 'Cleansers', 'Gels')",521,109,412,7.278310940499041,3792
+"('Beauty', 'Skin Care', 'Maternity')",252,68,184,14.865079365079366,3746
+"('Beauty', 'Tools & Accessories', 'Bags & Cases', 'Toiletry Bags')",600,104,496,5.971666666666667,3583
+"('Beauty', 'Fragrance', ""Women's"", 'Essential Oils')",654,89,565,5.4296636085626915,3551
+"('Beauty', 'Bath & Body', 'Sets')",1114,96,1018,3.1104129263913824,3465
+"('Beauty', 'Skin Care', 'Face', 'Creams & Moisturizers', 'Day Creams')",492,128,364,7.020325203252033,3454
+"('Beauty', 'Hair Care', 'Hair Loss Products', 'Styling Products')",279,64,215,12.31899641577061,3437
+"('Beauty', 'Hair Care', 'Styling Tools', 'Styling Accessories', 'Hair Pins')",595,102,493,5.749579831932773,3421
+"('Beauty', 'Tools & Accessories', 'Bags & Cases', 'Travel Cases & Holders')",650,97,553,5.246153846153846,3410
+"('Beauty', 'Skin Care', 'Eyes')",256,74,182,13.1875,3376
+"('Beauty', 'Hair Care', 'Styling Tools', 'Hair Cutting Kits')",189,67,122,17.6984126984127,3345
+"('Beauty', 'Skin Care', 'Face', 'Treatments & Masks', 'Acids & Peels', 'Salicylic Acid')",151,61,90,21.642384105960264,3268
+"('Beauty', 'Skin Care', 'Face', 'Treatments & Masks', 'Acids & Peels', 'Glycolic Acid')",223,86,137,14.242152466367713,3176
+"('Beauty', 'Hair Care', 'Styling Tools')",376,92,284,8.441489361702128,3174
+"('Beauty', 'Bath & Body', 'Bathing Accessories', 'Bath Mitts & Cloths')",291,73,218,10.890034364261169,3169
+"('Beauty', 'Bath & Body', 'Bathing Accessories', 'Shower Caps')",380,74,306,8.302631578947368,3155
+"('Beauty', 'Hair Care', 'Hair Loss Products', 'Shampoos')",284,77,207,11.084507042253522,3148
+"('Beauty', 'Skin Care', 'Eyes', 'Combinations')",93,56,37,33.61290322580645,3126
+"('Beauty', 'Hair Care', 'Hair Color', 'Hennas')",286,92,194,10.874125874125873,3110
+"('Beauty', 'Hair Care', 'Styling Tools', 'Styling Accessories', 'Decorative Combs')",649,102,547,4.6440677966101696,3014
+"('Beauty', 'Tools & Accessories', 'Nail Tools', 'Nail Brushes')",342,75,267,8.783625730994151,3004
+"('Beauty', 'Fragrance', ""Men's"", 'Sets')",1077,78,999,2.754874651810585,2967
+"('Beauty', 'Hair Care', 'Styling Tools', 'Styling Accessories', 'Barrettes')",794,69,725,3.565491183879093,2831
+"('Beauty', 'Makeup', 'Eyes', 'Liner & Shadow Combinations')",361,74,287,7.7368421052631575,2793
+"('Beauty', 'Bath & Body', 'Bath', 'Bubble Bath')",503,70,433,5.485089463220676,2759
+"('Beauty', 'Makeup', 'Nails', 'Nail Polish Remover')",323,98,225,8.458204334365325,2732
+"('Beauty', 'Hair Care', 'Styling Products')",408,90,318,6.549019607843137,2672
+"('Beauty', 'Tools & Accessories', 'Makeup Brushes & Tools', 'Sets & Kits')",542,73,469,4.708487084870849,2552
+"('Beauty', 'Skin Care', 'Face', 'Sunscreens & Self Tanners', 'Sunscreens')",123,46,77,20.70731707317073,2547
+"('Beauty', 'Hair Care', 'Styling Tools', 'Styling Accessories', 'Hair Drying Towels')",230,67,163,10.982608695652173,2526
+"('Beauty', 'Skin Care', 'Hands & Nails', 'Nail Treatments')",180,55,125,13.994444444444444,2519
+"('Beauty', 'Skin Care', 'Hands & Nails', 'Paraffin Baths')",204,53,151,12.308823529411764,2511
+"('Beauty', 'Tools & Accessories', 'Bags & Cases', 'Train Cases')",341,59,282,7.351906158357771,2507
+"('Beauty', 'Makeup', 'Lips', 'Lip Liners')",765,67,698,3.2745098039215685,2505
+"('Beauty', 'Hair Care', 'Hair Color', 'Highlights')",315,87,228,7.7746031746031745,2449
+"('Beauty', 'Tools & Accessories', 'Nail Tools', 'Toe Separators')",174,57,117,13.867816091954023,2413
+"('Beauty', 'Makeup', 'Makeup Palettes')",393,59,334,5.997455470737913,2357
+"('Beauty', 'Hair Care', 'Hair Loss Products', 'Conditioners')",164,38,126,14.24390243902439,2336
+"('Beauty', 'Makeup', 'Lips', 'Lip Stains')",335,67,268,6.937313432835821,2324
+"('Beauty', 'Skin Care', 'Sun', 'After Sun')",293,72,221,7.703071672354949,2257
+"('Beauty', 'Hair Care', 'Hair Color', 'Color Refreshers')",254,56,198,8.858267716535433,2250
+"('Beauty', 'Hair Care', 'Styling Products', 'Hair Extensions & Wigs', 'Hairpieces')",606,64,542,3.5643564356435644,2160
+"('Beauty', 'Bath & Body', 'Bathing Accessories', 'Bath Pillows')",168,44,124,12.773809523809524,2146
+"('Beauty', 'Tools & Accessories', 'Cotton & Swabs', 'Cotton Swabs')",189,46,143,11.26984126984127,2130
+"('Beauty', 'Tools & Accessories')",353,47,306,5.5609065155807365,1963
+"('Beauty', 'Tools & Accessories', 'Nail Tools', 'Spa Slippers')",184,30,154,10.565217391304348,1944
+"('Beauty', 'Bath & Body', 'Bath', 'Oils')",287,46,241,6.700348432055749,1923
+"('Beauty', 'Hair Care', 'Styling Tools', 'Diffusers')",151,58,93,12.258278145695364,1851
+"('Beauty', 'Skin Care', 'Eyes', 'Masks')",261,55,206,6.969348659003831,1819
+"('Beauty', 'Bath & Body', 'Bathing Accessories', 'Bath Trays')",62,32,30,28.887096774193548,1791
+"('Beauty', 'Skin Care', 'Face', 'Exfoliators & Scrubs', 'Exfoliators')",155,43,112,11.387096774193548,1765
+"('Beauty', 'Skin Care', 'Hands & Nails', 'Nail Treatments', 'Nail Repair')",161,40,121,10.807453416149068,1740
+"('Beauty', 'Makeup', 'Eyes', 'Concealer & Base')",217,32,185,7.815668202764977,1696
+"('Beauty', 'Makeup', 'Body', 'Temporary Tattoos')",472,41,431,3.3961864406779663,1603
+"('Beauty', 'Tools & Accessories', 'Makeup Brushes & Tools', 'Treatment Tools', 'Blemish Tools')",107,30,77,14.962616822429906,1601
+"('Beauty', 'Hair Care', 'Hair Relaxers', 'Conditioners')",190,46,144,8.363157894736842,1589
+"('Beauty', 'Hair Care', 'Styling Tools', 'Braiders')",82,39,43,19.26829268292683,1580
+"('Beauty', 'Fragrance', ""Men's"", 'Eau de Parfum')",297,52,245,5.097643097643098,1514
+"('Beauty', 'Makeup', 'Lips', 'Lip Plumpers')",390,46,344,3.848717948717949,1501
+"('Beauty', 'Makeup')",383,30,353,3.6449086161879896,1396
+"('Beauty', 'Skin Care', 'Face', 'Treatments & Masks', 'Acids & Peels', 'Lactic Acid')",64,23,41,21.6875,1388
+"('Beauty', 'Hair Care', 'Styling Tools', 'Styling Accessories', 'Claws')",432,45,387,3.196759259259259,1381
+"('Beauty', 'Skin Care', 'Face', 'Treatments & Masks', 'Acids & Peels', 'Retinol')",68,36,32,20.11764705882353,1368
+"('Beauty', 'Skin Care', 'Face', 'Treatments & Masks', 'Acids & Peels')",179,34,145,7.5195530726256985,1346
+"('Beauty', 'Skin Care', 'Eyes', 'Serums')",127,31,96,10.464566929133857,1329
+"('Beauty', 'Hair Care', 'Styling Products', 'Braid Maintenance')",115,25,90,11.069565217391304,1273
+"('Beauty', 'Tools & Accessories', 'Makeup Brushes & Tools', 'Sharpeners')",80,20,60,15.6,1248
+"('Beauty', 'Skin Care', 'Hands & Nails', 'Moisturizing Gloves')",125,40,85,9.824,1228
+"('Beauty', 'Skin Care', 'Eyes', 'Rollers & Pens')",48,15,33,25.104166666666668,1205
+"('Beauty', 'Skin Care', 'Face', 'Treatments & Masks', 'Pore Cleansing Strips')",47,13,34,24.46808510638298,1150
+"('Beauty', 'Makeup', 'Eyes', 'Glitter & Shimmer')",223,26,197,4.986547085201794,1112
+"('Beauty', 'Hair Care', 'Styling Tools', 'Styling Accessories', 'Hair Sticks')",323,33,290,3.278637770897833,1059
+"('Beauty', 'Tools & Accessories', 'Nail Tools', 'Foot Rasps')",150,29,121,7.0,1050
+"('Beauty', 'Skin Care', 'Face', 'Cleansers', 'Bars')",86,29,57,12.046511627906977,1036
+"('Beauty', 'Bath & Body', 'Bathing Accessories', 'Eye Masks')",50,15,35,20.34,1017
+"('Beauty', 'Skin Care', 'Face', 'Creams & Moisturizers', 'Tinted Moisturizers')",133,26,107,7.639097744360902,1016
+"('Beauty', 'Bath & Body', 'Bath')",289,18,271,3.508650519031142,1014
+"('Beauty', 'Skin Care', 'Body')",221,32,189,4.276018099547511,945
+"('Beauty', 'Bath & Body', 'Bath', 'Bath Bombs')",247,30,217,3.777327935222672,933
+"('Beauty', 'Tools & Accessories', 'Nail Tools', 'Cuticle Pushers')",115,27,88,8.069565217391304,928
+"('Beauty', 'Skin Care', 'Eyes', 'Masks & Pillows', 'Pillows')",42,13,29,21.476190476190474,902
+"('Beauty', 'Skin Care', 'Eyes', 'Gels')",62,18,44,13.612903225806452,844
+"('Beauty', 'Tools & Accessories', 'Hair Coloring Tools', 'Applicator Bottles')",82,24,58,9.865853658536585,809
+"('Beauty', 'Makeup', 'Makeup Remover', 'Face')",174,17,157,4.64367816091954,808
+"('Beauty', 'Tools & Accessories', 'Hair Coloring Tools', 'Hair Color Removers')",30,11,19,26.8,804
+"('Beauty', 'Skin Care', 'Body', 'Moisturizers')",36,15,21,22.055555555555557,794
+"('Beauty', 'Makeup', 'Body', 'Bronzing Powder')",86,19,67,9.127906976744185,785
+"('Beauty', 'Makeup', 'Body', 'Body Paint')",219,17,202,3.529680365296804,773
+"('Beauty', 'Hair Care', 'Hair Color')",116,23,93,6.603448275862069,766
+"('Beauty', 'Tools & Accessories', 'Hair Coloring Tools', 'Caps, Foils & Wraps')",103,19,84,6.766990291262136,697
+"('Beauty', 'Tools & Accessories', 'Makeup Brushes & Tools', 'Blotting Paper')",118,17,101,5.47457627118644,646
+"('Beauty', 'Skin Care', 'Eyes', 'Complexes')",68,19,49,9.411764705882353,640
+"('Beauty', 'Tools & Accessories', 'Cotton & Swabs', 'Cotton Balls')",93,17,76,6.688172043010753,622
+"('Beauty', 'Bath & Body', 'Scrubs & Body Treatments', 'Body Souffles & Mousse')",146,18,128,4.1506849315068495,606
+"('Beauty', 'Hair Care', 'Hair Relaxers', 'Creams')",102,18,84,5.921568627450981,604
+"('Beauty', 'Bath & Body', 'Scrubs & Body Treatments', 'Body Mud')",214,11,203,2.6682242990654204,571
+"('Beauty', 'Hair Care', 'Hair Perms & Texturizers', 'Home Permanent Kits')",78,21,57,7.1923076923076925,561
+"('Beauty', 'Skin Care', 'Face', 'Exfoliators & Scrubs', 'Polishes')",95,18,77,5.8,551
+"('Beauty', 'Fragrance', ""Women's"")",192,19,173,2.859375,549
+"('Beauty', 'Bath & Body')",188,11,177,2.7925531914893615,525
+"('Beauty', 'Hair Care', 'Styling Tools', 'Styling Accessories')",13,4,9,38.61538461538461,502
+"('Beauty', 'Skin Care', 'Hands & Nails', 'Cuticle Care', 'Cuticle Repair')",42,14,28,11.19047619047619,470
+"('Beauty', 'Hair Care', 'Styling Tools', 'Irons', 'Crimping Irons')",47,17,30,9.97872340425532,469
+"('Beauty', 'Tools & Accessories', 'Nail Tools', 'Cuticle Scissors')",139,20,119,3.352517985611511,466
+"('Beauty', 'Hair Care', 'Hair Relaxers', 'Shampoos')",71,10,61,6.352112676056338,451
+"('Beauty', 'Skin Care', 'Sun')",109,14,95,4.110091743119266,448
+"('Beauty', 'Hair Care', 'Shampoo Plus Conditioner')",36,15,21,12.36111111111111,445
+"('Beauty', 'Tools & Accessories', 'Bags & Cases', 'Brush Bags')",71,12,59,6.140845070422535,436
+"('Beauty', 'Bath & Body', 'Cleansers')",75,8,67,5.773333333333333,433
+"('Beauty', 'Makeup', 'Body', 'Body Glitter')",145,13,132,2.9793103448275864,432
+"('Beauty', 'Skin Care', 'Hands & Nails', 'Cuticle Care', 'Cuticle Removers')",79,18,61,5.455696202531645,431
+"('Beauty', 'Makeup', 'Nails', 'Nail Thickening Solution')",46,14,32,8.978260869565217,413
+"('Beauty', 'Makeup', 'Lips', 'Lipstick Primers')",79,12,67,5.2025316455696204,411
+"('Beauty', 'Hair Care', 'Hair Relaxers', 'Lotions')",11,3,8,37.27272727272727,410
+"('Beauty', 'Hair Care', 'Hair Perms & Texturizers', 'Texturizers')",46,9,37,8.804347826086957,405
+"('Beauty', 'Makeup', 'Lips')",82,14,68,4.926829268292683,404
+"('Beauty', 'Skin Care', 'Hands & Nails')",127,7,120,3.0866141732283463,392
+"('Beauty', 'Tools & Accessories', 'Makeup Brushes & Tools', 'Eyelash Tools')",28,11,17,13.642857142857142,382
+"('Beauty', 'Skin Care', 'Eyes', 'Fillers')",26,11,15,14.346153846153847,373
+"('Beauty', 'Hair Care', 'Hair Loss Products')",49,12,37,7.489795918367347,367
+"('Beauty', 'Tools & Accessories', 'Nail Tools')",87,12,75,4.183908045977011,364
+"('Beauty', 'Skin Care', 'Face', 'Treatments & Masks', 'Acids & Peels', 'Alpha Beta')",21,8,13,16.38095238095238,344
+"('Beauty', 'Tools & Accessories', 'Hair Coloring Tools', 'Brushes, Combs & Needles')",52,11,41,6.403846153846154,333
+"('Beauty', 'Skin Care', 'Face', 'Sunscreens & Self Tanners', 'Self Tanners')",45,14,31,6.955555555555556,313
+"('Beauty', 'Skin Care', 'Face', 'Creams & Moisturizers', 'Fluids & Lotions')",8,5,3,38.625,309
+"('Beauty', 'Hair Care', 'Styling Tools', 'Irons')",30,11,19,10.0,300
+"('Beauty', 'Bath & Body', 'Scrubs & Body Treatments')",51,6,45,5.627450980392157,287
+"('Beauty', 'Tools & Accessories', 'Mirrors')",26,12,14,10.884615384615385,283
+"('Beauty', 'Hair Care', 'Hair Color', 'Color Correctors')",68,9,59,4.161764705882353,283
+"('Beauty', 'Makeup', 'Nails')",46,7,39,5.586956521739131,257
+"('Beauty', 'Makeup', 'Eyes')",44,8,36,5.7727272727272725,254
+"('Beauty', 'Fragrance', ""Children's"")",82,9,73,3.0609756097560976,251
+"('Beauty', 'Tools & Accessories', 'Bags & Cases')",62,2,60,4.032258064516129,250
+"('Beauty', 'Skin Care', 'Hands & Nails', 'Nail Treatments', 'Ridge Filler')",35,8,27,6.085714285714285,213
+"('Beauty', 'Makeup', 'Body', 'Concealer')",52,7,45,4.038461538461538,210
+"('Beauty', 'Bath & Body', 'Bathing Accessories')",66,9,57,3.0454545454545454,201
+"('Beauty', 'Skin Care', 'Hands & Nails', 'Cuticle Care')",35,9,26,5.714285714285714,200
+"('Beauty', 'Fragrance', 'Candles & Home Scents')",69,4,65,2.8550724637681157,197
+"('Beauty', 'Skin Care', 'Hands & Nails', 'Nail Treatments', 'Nail Whitening')",29,7,22,6.517241379310345,189
+"('Beauty', 'Tools & Accessories', 'Hair Coloring Tools')",26,2,24,5.5,143
+"('Beauty', 'Hair Care', 'Hair Relaxers')",40,2,38,3.1,124
+"('Beauty', 'Makeup', 'Body')",36,3,33,3.0,108
+"('Beauty', 'Bath & Body', 'Bath', 'Bath Pearls & Flakes')",32,2,30,3.125,100
+"('Beauty', 'Hair Care', 'Hair Perms & Texturizers')",17,4,13,5.647058823529412,96
+"('Beauty', 'Hair Care', 'Hair Color', 'Color Primers')",45,3,42,2.0444444444444443,92
+"('Beauty', 'Hair Care', 'Hair Relaxers', 'Activators')",22,4,18,3.909090909090909,86
+"('Beauty', 'Tools & Accessories', 'Hair Coloring Tools', 'Hair Color Mixing Bowls')",25,2,23,2.88,72
+"('Beauty', 'Makeup', 'Makeup Remover')",13,2,11,4.538461538461538,59
+"('Beauty', 'Tools & Accessories', 'Makeup Brushes & Tools', 'Treatment Tools')",11,1,10,4.909090909090909,54
+"('Beauty', 'Bath & Body', 'Bath', 'Tub Tea')",26,0,26,1.6538461538461537,43
+"('Beauty', 'Skin Care', 'Face', 'Exfoliators & Scrubs')",10,1,9,4.3,43
+"('Beauty', 'Hair Care', 'Hair Relaxers', 'Gels')",13,1,12,3.1538461538461537,41
+"('Health & Personal Care', 'Personal Care', 'Lip Care')",3,1,2,7.666666666666667,23
+"('Beauty', 'Hair Care', 'Hair Perms & Texturizers', 'After-Perm Shampoos')",3,1,2,6.666666666666667,20
+"('Sports & Outdoors', 'Fan Shop')",9,0,9,2.111111111111111,19
+"('Sports & Outdoors', 'Snow Sports', 'Skiing')",1,1,0,8.0,8
+"('Beauty', 'Makeup', 'Makeup Remover', 'Lips')",3,0,3,2.6666666666666665,8
+"('Beauty', 'Makeup', 'Body', 'Henna')",5,0,5,1.4,7
+"('Health & Personal Care', 'Stationery & Party Supplies', 'Party Supplies')",5,0,5,1.2,6
+"('Beauty', 'Fragrance', ""Men's"")",3,0,3,2.0,6
+"('Beauty', 'Hair Care', 'Styling Products', 'Hair Extensions & Wigs')",2,0,2,2.5,5
+"('Beauty', 'Makeup', 'Face')",4,0,4,1.0,4
+"('Health & Personal Care', 'Health Care', 'Massage & Relaxation')",1,0,1,3.0,3
+"('Health & Personal Care', 'Personal Care', 'Lip Care', 'Balms & Moisturizers')",1,0,1,3.0,3
+"('Health & Personal Care', 'Health Care', 'Pain Relievers', 'Hot & Cold Therapies')",1,0,1,3.0,3
+"('Health & Personal Care', 'Stationery & Party Supplies', 'Party Supplies', 'Favors')",1,0,1,3.0,3
+"('Beauty', 'Tools & Accessories', 'Makeup Brushes & Tools')",2,0,2,1.5,3
+"('Tools & Home Improvement', 'Hardware', 'Nails, Screws & Fasteners')",1,0,1,2.0,2
+"('Health & Personal Care', 'Household Supplies', 'Household Cleaning', 'All-Purpose Cleaners')",1,0,1,2.0,2
+"('Health & Personal Care', 'Personal Care', 'Deodorants & Antiperspirants', ""Men's Deodorants & Antiperspirants"")",1,0,1,1.0,1
+"('Beauty', 'Tools & Accessories', 'Cotton & Swabs')",1,0,1,1.0,1
+"('Health & Personal Care', 'Stationery & Party Supplies', 'Party Supplies', 'Decorations')",1,0,1,1.0,1
+"('Home & Kitchen', 'Kitchen & Dining', 'Home Brewing & Wine Making', 'Beer Brewing', 'Kegs & Kegging')",1,0,1,1.0,1
+"('Sports & Outdoors', 'Accessories', 'Sports Sunglasses')",1,0,1,1.0,1
+"('Sports & Outdoors', 'Accessories', 'Headbands')",1,0,1,1.0,1
+"('Home & Kitchen', 'Storage & Organization')",1,0,1,1.0,1
+"('Sports & Outdoors', 'Fan Shop', 'Bags, Packs & Accessories', 'Tote Bags')",1,0,1,1.0,1

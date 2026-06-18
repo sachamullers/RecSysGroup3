@@ -10,3 +10,15 @@ log/*
 log_tensorboard/*
 saved/
 *.lprof
+
+# Local Snellius symlinks
+saved_shared
+dataset_shared
+
+# Local EDA environment and extracted data
+.venv_eda/
+data_analysis/unzipped_data/
+
+# Large generated EDA tables
+data_analysis/plots/*item_popularity_table.csv
+data_analysis/plots/*item_popularity_with_metadata.csv
