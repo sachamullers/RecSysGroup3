@@ -283,7 +283,7 @@ def make_basic_plots(df: pd.DataFrame, output_dir: Path) -> pd.DataFrame:
 
 def make_metadata_summaries(
     item_popularity_df: pd.DataFrame,
-    item_metadata: pd.DataFrame | None,
+    item_metadata,
     output_dir: Path,
 ) -> None:
     if item_metadata is None:
