@@ -103,8 +103,12 @@ def load_item_metadata(dataset_dir: Path):
 
 def safe_parse_category(value):
     """
-    Attempts to parse category-like values if stored as a list string.
-    Otherwise returns the original value.
+    Convert category paths into a readable final category label.
+
+    Example:
+      ('Beauty', 'Skin Care', 'Body', 'Moisturizers', 'Lotions')
+    becomes:
+      Lotions
     """
     if pd.isna(value):
         return "UNKNOWN"
@@ -116,14 +120,15 @@ def safe_parse_category(value):
 
     try:
         parsed = ast.literal_eval(stripped)
-        if isinstance(parsed, list):
+
+        if isinstance(parsed, (list, tuple)):
             if len(parsed) == 0:
                 return "UNKNOWN"
             return str(parsed[-1])
+
         return str(parsed)
     except Exception:
         return stripped if stripped else "UNKNOWN"
-
 
 def maybe_numeric_price(value):
     if pd.isna(value):
@@ -275,9 +280,10 @@ def make_basic_plots(df: pd.DataFrame, output_dir: Path) -> pd.DataFrame:
 
     return item_popularity_df
 
+
 def make_metadata_summaries(
     item_popularity_df: pd.DataFrame,
-    item_metadata,
+    item_metadata: pd.DataFrame | None,
     output_dir: Path,
 ) -> None:
     if item_metadata is None:
@@ -335,9 +341,13 @@ def make_metadata_summaries(
             index=False,
         )
 
-        top_categories = category_summary.head(20)
-        plt.figure()
-        plt.barh(top_categories["category"].astype(str), top_categories["total_interactions"])
+        top_categories = category_summary.head(15)
+
+        plt.figure(figsize=(10, 7))
+        plt.barh(
+            top_categories["category"].astype(str),
+            top_categories["total_interactions"],
+        )
         plt.xlabel("Total interactions")
         plt.ylabel("Category")
         plt.title("Amazon Beauty: Top categories by interactions")
@@ -368,11 +378,27 @@ def make_metadata_summaries(
         head_prices = merged.loc[merged["is_head_top20"], "price_numeric"].dropna()
         tail_prices = merged.loc[merged["is_tail_bottom80"], "price_numeric"].dropna()
 
-        if len(head_prices) > 0 and len(tail_prices) > 0:
-            plt.figure()
-            plt.hist(head_prices, bins=50, alpha=0.6, label="Head top 20%")
-            plt.hist(tail_prices, bins=50, alpha=0.6, label="Tail bottom 80%")
-            plt.xlabel("Price")
+        all_prices = pd.concat([head_prices, tail_prices])
+        price_upper = all_prices.quantile(0.99)
+
+        head_prices_clipped = head_prices[head_prices <= price_upper]
+        tail_prices_clipped = tail_prices[tail_prices <= price_upper]
+
+        if len(head_prices_clipped) > 0 and len(tail_prices_clipped) > 0:
+            plt.figure(figsize=(10, 6))
+            plt.hist(
+                head_prices_clipped,
+                bins=50,
+                alpha=0.6,
+                label="Head top 20%",
+            )
+            plt.hist(
+                tail_prices_clipped,
+                bins=50,
+                alpha=0.6,
+                label="Tail bottom 80%",
+            )
+            plt.xlabel("Price, clipped at 99th percentile")
             plt.ylabel("Number of items")
             plt.title("Amazon Beauty: Price distribution by head/tail")
             plt.legend()
