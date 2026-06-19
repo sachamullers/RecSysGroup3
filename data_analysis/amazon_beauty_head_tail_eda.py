@@ -226,7 +226,7 @@ def make_basic_plots(df: pd.DataFrame, output_dir: Path) -> pd.DataFrame:
     )
 
     # Item popularity rank plot.
-    plt.figure()
+    plt.figure(figsize=(10, 6))
     plt.plot(np.arange(1, num_items + 1), sorted_items.values)
     plt.yscale("log")
     plt.xlabel("Item rank by popularity")
@@ -234,6 +234,48 @@ def make_basic_plots(df: pd.DataFrame, output_dir: Path) -> pd.DataFrame:
     plt.title("Amazon Beauty: Item popularity distribution")
     plt.tight_layout()
     plt.savefig(output_dir / "amazon_beauty_item_popularity_log.png", dpi=200)
+    plt.close()
+
+    # Long-tail popularity curve with head/tail regions.
+    item_ranks = np.arange(1, num_items + 1)
+    item_popularity_values = sorted_items.values
+
+    head_ranks = item_ranks[:n_head_top20]
+    head_values = item_popularity_values[:n_head_top20]
+
+    tail_ranks = item_ranks[n_head_top20:]
+    tail_values = item_popularity_values[n_head_top20:]
+
+    plt.figure(figsize=(11, 6))
+
+    plt.fill_between(
+        head_ranks,
+        head_values,
+        alpha=0.8,
+        label="Head items: top 20%",
+    )
+
+    plt.fill_between(
+        tail_ranks,
+        tail_values,
+        alpha=0.8,
+        label="Tail items: bottom 80%",
+    )
+
+    plt.axvline(
+        n_head_top20,
+        linestyle="--",
+        linewidth=1,
+        label=f"Head/tail split at rank {n_head_top20:,}",
+    )
+
+    plt.yscale("log")
+    plt.xlabel("Items ordered from most popular to least popular")
+    plt.ylabel("Number of interactions (log scale)")
+    plt.title("Amazon Beauty: Long-tail item popularity distribution")
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(output_dir / "amazon_beauty_long_tail_curve.png", dpi=200)
     plt.close()
 
     # Cumulative interaction share.
