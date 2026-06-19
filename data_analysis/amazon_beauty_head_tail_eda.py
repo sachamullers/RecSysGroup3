@@ -252,14 +252,17 @@ def make_basic_plots(df: pd.DataFrame, output_dir: Path) -> pd.DataFrame:
     plt.close()
 
 
-    # Item popularity histogram with head/tail cutoff.
+    # Zoomed item popularity histogram with head/tail cutoff.
     head_cutoff_count = sorted_items.iloc[n_head_top20 - 1]
+    max_hist_interactions = 50
+
+    clipped_item_counts = item_counts[item_counts <= max_hist_interactions]
 
     plt.figure(figsize=(10, 6))
     plt.hist(
-        item_counts.values,
-        bins=50,
-        weights=np.ones_like(item_counts.values) / len(item_counts.values),
+        clipped_item_counts.values,
+        bins=np.arange(1, max_hist_interactions + 2) - 0.5,
+        weights=np.ones_like(clipped_item_counts.values) / len(item_counts.values),
     )
     plt.axvline(
         head_cutoff_count,
@@ -267,10 +270,9 @@ def make_basic_plots(df: pd.DataFrame, output_dir: Path) -> pd.DataFrame:
         linewidth=1,
         label=f"Head cutoff: {head_cutoff_count} interactions",
     )
-    plt.yscale("log")
     plt.xlabel("Interactions per item")
-    plt.ylabel("Proportion of items (log scale)")
-    plt.title("Amazon Beauty: Item popularity histogram with head/tail cutoff")
+    plt.ylabel("Proportion of all items")
+    plt.title("Amazon Beauty: Item popularity histogram, zoomed to ≤50 interactions")
     plt.legend()
     plt.tight_layout()
     plt.savefig(output_dir / "amazon_beauty_item_popularity_hist.png", dpi=200)
