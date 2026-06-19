@@ -251,15 +251,55 @@ def make_basic_plots(df: pd.DataFrame, output_dir: Path) -> pd.DataFrame:
     plt.savefig(output_dir / "amazon_beauty_cumulative_interactions.png", dpi=200)
     plt.close()
 
-    # Item popularity histogram.
-    plt.figure()
-    plt.hist(item_counts.values, bins=50)
+
+    # Item popularity histogram with head/tail cutoff.
+    head_cutoff_count = sorted_items.iloc[n_head_top20 - 1]
+
+    plt.figure(figsize=(10, 6))
+    plt.hist(
+        item_counts.values,
+        bins=50,
+        weights=np.ones_like(item_counts.values) / len(item_counts.values),
+    )
+    plt.axvline(
+        head_cutoff_count,
+        linestyle="--",
+        linewidth=1,
+        label=f"Head cutoff: {head_cutoff_count} interactions",
+    )
     plt.yscale("log")
     plt.xlabel("Interactions per item")
-    plt.ylabel("Number of items (log scale)")
-    plt.title("Amazon Beauty: Item popularity histogram")
+    plt.ylabel("Proportion of items (log scale)")
+    plt.title("Amazon Beauty: Item popularity histogram with head/tail cutoff")
+    plt.legend()
     plt.tight_layout()
     plt.savefig(output_dir / "amazon_beauty_item_popularity_hist.png", dpi=200)
+    plt.close()
+
+    # Item popularity histogram (switched axis).
+    plt.figure(figsize=(10, 8))
+    plt.hist(
+        item_counts.values,
+        bins=50,
+        orientation="horizontal",
+        weights=np.ones_like(item_counts.values) / len(item_counts.values),
+    )
+    plt.axhline(
+        head_cutoff_count,
+        linestyle="--",
+        linewidth=1,
+        label=f"Head cutoff: {head_cutoff_count} interactions",
+    )
+    plt.xscale("log")
+    plt.ylabel("Interactions per item")
+    plt.xlabel("Proportion of items (log scale)")
+    plt.title("Amazon Beauty: Item popularity histogram, switched axes")
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(
+        output_dir / "amazon_beauty_item_popularity_hist_switched_axes.png",
+        dpi=200,
+    )
     plt.close()
 
     # User activity rank plot.
@@ -356,6 +396,87 @@ def make_metadata_summaries(
         plt.savefig(output_dir / "amazon_beauty_top_categories.png", dpi=200)
         plt.close()
 
+        
+        category_item_level = merged.assign(
+            category=merged[category_col].apply(safe_parse_category)
+        )
+
+        head_category_counts = (
+            category_item_level[category_item_level["is_head_top20"]]
+            .groupby("category")["item_id"]
+            .count()
+            .rename("head_item_count")
+        )
+
+        tail_category_counts = (
+            category_item_level[category_item_level["is_tail_bottom80"]]
+            .groupby("category")["item_id"]
+            .count()
+            .rename("tail_item_count")
+        )
+
+        category_composition = (
+            pd.concat([head_category_counts, tail_category_counts], axis=1)
+            .fillna(0)
+            .reset_index()
+        )
+
+        category_composition["head_item_proportion"] = (
+            category_composition["head_item_count"]
+            / category_composition["head_item_count"].sum()
+        )
+
+        category_composition["tail_item_proportion"] = (
+            category_composition["tail_item_count"]
+            / category_composition["tail_item_count"].sum()
+        )
+
+        category_composition["proportion_difference_tail_minus_head"] = (
+            category_composition["tail_item_proportion"]
+            - category_composition["head_item_proportion"]
+        )
+
+        category_composition = category_composition.sort_values(
+            "tail_item_proportion",
+            ascending=False,
+        )
+
+        category_composition.to_csv(
+            output_dir / "amazon_beauty_category_head_tail_composition.csv",
+            index=False,
+        )
+
+        top_composition = category_composition.head(15).copy()
+
+        y = np.arange(len(top_composition))
+        bar_height = 0.4
+
+        plt.figure(figsize=(10, 7))
+        plt.barh(
+            y - bar_height / 2,
+            top_composition["head_item_proportion"],
+            height=bar_height,
+            label="Within head items",
+        )
+        plt.barh(
+            y + bar_height / 2,
+            top_composition["tail_item_proportion"],
+            height=bar_height,
+            label="Within tail items",
+        )
+        plt.yticks(y, top_composition["category"].astype(str))
+        plt.xlabel("Proportion within group")
+        plt.ylabel("Category")
+        plt.title("Amazon Beauty: Category Proportions within head vs tail items")
+        plt.gca().invert_yaxis()
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig(
+            output_dir / "amazon_beauty_category_head_tail_composition.png",
+            dpi=200,
+        )
+        plt.close()
+
     # Price analysis
     if possible_price_cols:
         price_col = possible_price_cols[0]
@@ -385,21 +506,32 @@ def make_metadata_summaries(
         tail_prices_clipped = tail_prices[tail_prices <= price_upper]
 
         if len(head_prices_clipped) > 0 and len(tail_prices_clipped) > 0:
+            bins = np.linspace(
+                0,
+                price_upper,
+                50,
+            )
+
+            head_weights = np.ones_like(head_prices_clipped) / len(head_prices_clipped)
+            tail_weights = np.ones_like(tail_prices_clipped) / len(tail_prices_clipped)
+
             plt.figure(figsize=(10, 6))
             plt.hist(
                 head_prices_clipped,
-                bins=50,
+                bins=bins,
+                weights=head_weights,
                 alpha=0.6,
                 label="Head top 20%",
             )
             plt.hist(
                 tail_prices_clipped,
-                bins=50,
+                bins=bins,
+                weights=tail_weights,
                 alpha=0.6,
                 label="Tail bottom 80%",
             )
             plt.xlabel("Price, clipped at 99th percentile")
-            plt.ylabel("Number of items")
+            plt.ylabel("Proportion of items")
             plt.title("Amazon Beauty: Price distribution by head/tail")
             plt.legend()
             plt.tight_layout()
