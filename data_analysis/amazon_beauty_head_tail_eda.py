@@ -246,7 +246,7 @@ def make_basic_plots(df: pd.DataFrame, output_dir: Path) -> pd.DataFrame:
     tail_ranks = item_ranks[n_head_top20:]
     tail_values = item_popularity_values[n_head_top20:]
 
-    plt.figure(figsize=(18, 6))
+    plt.figure(figsize=(11, 6))
 
     plt.fill_between(
         head_ranks,
@@ -275,7 +275,7 @@ def make_basic_plots(df: pd.DataFrame, output_dir: Path) -> pd.DataFrame:
     plt.title("Amazon Beauty: Long-tail item popularity distribution")
     plt.legend()
     plt.tight_layout()
-    plt.savefig(output_dir / "amazon_beauty_long_tail_curve.png", dpi=300)
+    plt.savefig(output_dir / "amazon_beauty_long_tail_curve.png", dpi=200)
     plt.close()
 
     # Cumulative interaction share.
