@@ -38,6 +38,8 @@ from recbole.utils import (
     get_environment,
 )
 
+import torch
+import os
 
 def run_recbole(
     args=None, model=None, dataset=None, config_file_list=None, config_dict=None, saved=True
@@ -109,6 +111,13 @@ def run_recbole(
         best_valid_score, best_valid_result = trainer.fit(
             train_data, valid_data, saved=saved, show_progress=config["show_progress"]
         )
+
+    # Save connector separately, if the model has one
+    if hasattr(model, "embedding_connector"):
+        os.makedirs("saved/connectors", exist_ok=True)
+        connector_path = f"saved/connectors/{config['model']}-{config['dataset']}-{config['emb_selection']}.pt"
+        torch.save(model.embedding_connector.state_dict(), connector_path)
+        logger.info(f"Saved embedding connector to {connector_path}")
 
     # model evaluation
     test_result = trainer.evaluate(

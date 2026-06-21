@@ -109,7 +109,7 @@ class GeneralRecommender(AbstractRecommender):
         self.device = config["device"]
         
         # load context embedding if neccessary
-        if config.model in ('ContGCN', 'ContSGL', 'ContSGCL'):
+        if config.model in ('ContGCN', 'ContSGL', 'ContSGCL', 'ContGCN2'):
             # self.item_embedding_context = dataset.item_feat.description.cuda()
             self.item_embedding_context = dataset.item_feat.llm_embedding.cuda()
 

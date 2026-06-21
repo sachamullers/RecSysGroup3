@@ -10,3 +10,7 @@ log/*
 log_tensorboard/*
 saved/
 *.lprof
+recbole/model/general_recommender/contgcn_different_connectors.py
+dataset/
+dataset/
+dataset
