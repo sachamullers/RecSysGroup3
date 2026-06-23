@@ -1,0 +1,12 @@
+Model: Baseline-LightGCN
+K: 20
+Brand-loyal threshold: 0.5
+Tail popularity buckets: 10
+
+Catalog Coverage@K = unique recommended items / total catalog items.
+Brand Diversity@K = unique non-missing recommended brands / K recommended items.
+Missing brand metadata therefore reduces the diversity score and must be reported as a limitation.
+Brand-loyal users are users whose most frequent historical brand reaches the selected threshold.
+The brand-loyal split is exploratory because the Amazon Beauty metadata has many missing brands and the resulting groups are highly imbalanced.
+Tail Item Diversity@K is the average popularity-bucket score of recommended items.
+Tail bucket 1 is the most popular/head bucket; higher buckets are deeper-tail items.
