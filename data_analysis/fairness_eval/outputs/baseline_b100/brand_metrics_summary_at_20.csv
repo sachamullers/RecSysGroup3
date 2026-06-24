@@ -1,0 +1,2 @@
+model,catalog_coverage@20,avg_brand_diversity@20,avg_tail_item_diversity@20,brand_loyal_avg_diversity@20,non_brand_loyal_avg_diversity@20,brand_diversity_gap_loyal_minus_non_loyal@20,brand_loyal_users_n,non_brand_loyal_users_n,brand_diversity_welch_ttest_p_value
+Baseline-LightGCN,0.014494090839798775,0.5545058277267126,0.051812761821232074,0.3579808459696727,0.5881685221567343,-0.2301876761870616,1253,9162,2.7581208784259057e-181

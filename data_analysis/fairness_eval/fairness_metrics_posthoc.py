@@ -481,6 +481,12 @@ def main() -> None:
     interactions = normalize_columns(read_table(args.interactions, "\t"))
     items = normalize_columns(read_table(args.items, "\t"))
 
+    model_item_ids = set(interactions["item_id"]).union(
+        set(recommendations["item_id"])
+    )
+
+    items = items[items["item_id"].isin(model_item_ids)].copy()
+    interactions = interactions[interactions["item_id"].isin(model_item_ids)].copy()
     validate_required_columns(recommendations, interactions, items)
 
     threshold_sweep = [

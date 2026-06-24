@@ -1,0 +1,2 @@
+model,catalog_coverage@20,avg_brand_diversity@20,avg_tail_item_diversity@20,brand_loyal_avg_diversity@20,non_brand_loyal_avg_diversity@20,brand_diversity_gap_loyal_minus_non_loyal@20,brand_loyal_users_n,non_brand_loyal_users_n,brand_diversity_welch_ttest_p_value
+LLMInit-var-ContGCN,0.01804038929049961,0.5483132758457311,0.06505760989745493,0.3234237829209896,0.5853580004365859,-0.2619342175155963,1253,9162,5.991355243442826e-247
