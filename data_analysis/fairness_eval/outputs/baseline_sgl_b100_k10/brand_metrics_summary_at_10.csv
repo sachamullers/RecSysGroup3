@@ -1,0 +1,2 @@
+model,catalog_coverage@10,avg_brand_diversity@10,avg_tail_item_diversity@10,brand_loyal_avg_diversity@10,non_brand_loyal_avg_diversity@10,brand_diversity_gap_loyal_minus_non_loyal@10,brand_loyal_users_n,non_brand_loyal_users_n,brand_diversity_welch_ttest_p_value
+Baseline-SGL,0.021169476158765053,0.586202975457216,0.12972517387049337,0.34253790901835596,0.6272102161100196,-0.28467230709166363,1253,9162,1.4747504206065034e-250
