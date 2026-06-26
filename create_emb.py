@@ -2,7 +2,7 @@ from pathlib import Path
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 
-base_dir = Path("/projects/prjs2120/groups/group_03/code/RecSysGroup3/dataset") #Change to own directory
+base_dir = Path("/home/scur1242/RecSysGroup3/dataset") #Change to own directory
 
 model = SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
 

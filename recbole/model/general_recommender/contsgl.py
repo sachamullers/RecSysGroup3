@@ -22,6 +22,7 @@ from recbole.model.init import xavier_uniform_initialization
 from recbole.model.loss import BPRLoss, EmbLoss
 from recbole.utils import InputType
 import torch.nn.functional as F
+from recbole.model.general_recommender.embedding_connector import EmbeddingConnector
 
 
 class ContSGL(GeneralRecommender):
@@ -61,6 +62,16 @@ class ContSGL(GeneralRecommender):
         self.reg_weight = config["reg_weight"]  # float32 type: the weight decay for l2 normalization
         self.require_pow = config["require_pow"]
 
+        self.use_connector = config["use_connector"]
+        self.connector_hidden_size = config["connector_hidden_size"]
+
+        if self.use_connector:
+            self.embedding_connector = EmbeddingConnector(
+                input_dim=self.llm_latent_dim,
+                output_dim=self.latent_dim,
+                hidden_dim=self.connector_hidden_size,
+            ).to(self.device)
+
         # define node degree
         data = torch.tensor(self.interaction_matrix.data).cuda()
         row = torch.tensor(self.interaction_matrix.row, dtype=torch.long).cuda()
@@ -73,7 +84,30 @@ class ContSGL(GeneralRecommender):
         self.item_degrees[0] = 1
         
         # # Create the embedding layer
-        if self.emb_selection:
+        if self.use_connector:
+            self.frozen_item_embedding = torch.nn.Embedding.from_pretrained(
+                self.item_embedding_context,
+                freeze=True
+            ).to(self.device)
+
+            if self.emb_selection == 'rand':
+                self.sample_strategy = self.random_sample()
+            elif self.emb_selection == 'uni':
+                self.sample_strategy = self.even_sample()
+            elif self.emb_selection == 'var':
+                self.sample_strategy = self.var_sample()
+            else:
+                self.sample_strategy = self.even_sample()
+
+            sampled_indices = self.sample_strategy
+            user_init_item_embeddings = self.item_embedding_context[:, sampled_indices]
+
+            self.user_embedding = torch.nn.Embedding(self.n_users, self.latent_dim)
+
+            self.user_embedding.weight = torch.nn.Parameter(torch.sparse.mm(self.sparse_A, \
+                                                user_init_item_embeddings)/self.user_degrees.unsqueeze(dim=1))
+
+        elif self.emb_selection:
             if self.emb_selection == 'rand':
                 self.sample_strategy = self.random_sample()
             elif self.emb_selection == 'uni':
@@ -87,14 +121,18 @@ class ContSGL(GeneralRecommender):
             # Extract sampled weights from the LLM embedding
             self.item_embedding.weight = nn.Parameter(self.item_embedding_context[:, sampled_indices])
             self.user_embedding = torch.nn.Embedding(self.n_users, self.latent_dim)
+
+            # define the user embedding layer
+            self.user_embedding.weight = torch.nn.Parameter(torch.sparse.mm(self.sparse_A, \
+                                                self.item_embedding.weight)/self.user_degrees.unsqueeze(dim=1))
         else: 
             self.item_embedding = torch.nn.Embedding(self.n_items, self.llm_latent_dim)
             self.item_embedding.weight = torch.nn.Parameter(self.item_embedding_context)
             self.user_embedding = torch.nn.Embedding(self.n_users, self.llm_latent_dim)
             
-        # define the user embedding layer
-        self.user_embedding.weight = torch.nn.Parameter(torch.sparse.mm(self.sparse_A, \
-                                            self.item_embedding.weight)/self.user_degrees.unsqueeze(dim=1))
+            # define the user embedding layer
+            self.user_embedding.weight = torch.nn.Parameter(torch.sparse.mm(self.sparse_A, \
+                                                self.item_embedding.weight)/self.user_degrees.unsqueeze(dim=1))
         
         self.reg_loss = EmbLoss()
         self.train_graph = self.csr2tensor(self.create_adjust_matrix(is_sub=False))
@@ -125,6 +163,12 @@ class ContSGL(GeneralRecommender):
         _, selected_indices = torch.topk(variances, self.latent_dim)
         sorted_indices, indices = torch.sort(selected_indices, descending=False)
         return sorted_indices
+
+    def get_item_embedding_weight(self):
+        if self.use_connector:
+            return self.embedding_connector(self.frozen_item_embedding.weight)
+        else:
+            return self.item_embedding.weight
     
     def graph_construction(self):
         r"""Devise three operators to generate the views — node dropout, edge dropout, and random walk of a node."""
@@ -252,7 +296,8 @@ class ContSGL(GeneralRecommender):
         return x
 
     def forward(self, graph):
-        main_ego = torch.cat([self.user_embedding.weight, self.item_embedding.weight])
+        item_embedding_weight = self.get_item_embedding_weight()
+        main_ego = torch.cat([self.user_embedding.weight, item_embedding_weight])
         all_ego = [main_ego]
         if isinstance(graph, list):
             for sub_graph in graph:
@@ -309,8 +354,14 @@ class ContSGL(GeneralRecommender):
         l1 = torch.sum(-F.logsigmoid(p_scores - n_scores))
 
         u_e_p = self.user_embedding(user_list)
-        pi_e_p = self.item_embedding(pos_item_list)
-        ni_e_p = self.item_embedding(neg_item_list)
+
+        if self.use_connector:
+            item_embedding_weight = self.get_item_embedding_weight()
+            pi_e_p = item_embedding_weight[pos_item_list]
+            ni_e_p = item_embedding_weight[neg_item_list]
+        else:
+            pi_e_p = self.item_embedding(pos_item_list)
+            ni_e_p = self.item_embedding(neg_item_list)
 
         l2 = self.reg_loss(u_e_p, pi_e_p, ni_e_p)
 

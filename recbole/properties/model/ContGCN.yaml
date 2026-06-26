@@ -3,4 +3,5 @@ llm_embedding_size: 768
 emb_selection: False
 n_layers: 2                      # (int) The number of layers in LightGCN.
 reg_weight: 1e-05               # (float) The L2 regularization weight.
-
+use_connector: True
+connector_hidden_size: 256

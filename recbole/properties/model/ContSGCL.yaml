@@ -4,3 +4,5 @@ emb_selection: False
 n_layers: 2                     # (int) The number of layers in LightGCN.
 reg_weight: 1e-05               # (float) The L2 regularization weight.
 temperature: 0.2 #0.5           # (float) The temperature in softmax.
+use_connector: True
+connector_hidden_size: 256

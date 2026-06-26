@@ -27,6 +27,7 @@ import torch.nn as nn
 
 from recbole.model.abstract_recommender import GeneralRecommender
 from recbole.model.init import xavier_uniform_initialization
+from recbole.model.general_recommender.embedding_connector import EmbeddingConnector
 from recbole.model.loss import BPRLoss, EmbLoss
 from recbole.utils import InputType
 
@@ -56,42 +57,101 @@ class ContGCN(GeneralRecommender):
         self.n_layers = config["n_layers"]  # int type:the layer num of lightGCN
         self.reg_weight = config["reg_weight"]  # float32 type: the weight decay for l2 normalization
         self.require_pow = config["require_pow"]
-            
-        # define node degree
-        data = torch.tensor(self.interaction_matrix.data).cuda()
-        row = torch.tensor(self.interaction_matrix.row, dtype=torch.long).cuda()
-        col = torch.tensor(self.interaction_matrix.col, dtype=torch.long).cuda()
+
+        self.use_connector = config["use_connector"]
+        self.connector_hidden_size = config["connector_hidden_size"]
+
+        # Connector: maps 768-dim LLM embeddings to 128-dim recommender embeddings
+        if self.use_connector:
+            self.embedding_connector = EmbeddingConnector(
+                input_dim=self.llm_latent_dim,
+                output_dim=self.latent_dim,
+                hidden_dim=self.connector_hidden_size,
+            ).to(self.device)
+
+        # Build sparse user-item matrix on device
+        data = torch.tensor(self.interaction_matrix.data, dtype=torch.float32).to(self.device)
+        row = torch.tensor(self.interaction_matrix.row, dtype=torch.long).to(self.device)
+        col = torch.tensor(self.interaction_matrix.col, dtype=torch.long).to(self.device)
         indices = torch.stack([row, col])
-        self.sparse_A =  torch.sparse_coo_tensor(indices, data, self.interaction_matrix.shape).cuda()
+        self.sparse_A =  torch.sparse_coo_tensor(indices, data, self.interaction_matrix.shape, device=self.device)
         self.user_degrees = torch.sum(self.sparse_A, dim=1).to_dense()
         self.user_degrees[0] = 1
         # breakpoint()
         self.item_degrees = torch.sum(self.sparse_A, dim=0).to_dense()
         self.item_degrees[0] = 1
-        
-        # # Create the embedding layer
-        if self.emb_selection:
-            if self.emb_selection == 'rand':
-                self.sample_strategy = self.random_sample()
-            elif self.emb_selection == 'uni':
-                self.sample_strategy = self.even_sample()
-            elif self.emb_selection == 'var':
-                self.sample_strategy = self.var_sample()
-            # item embedding
-            self.item_embedding = torch.nn.Embedding(self.n_items, self.latent_dim)
-            # Samping 
-            sampled_indices = self.sample_strategy     
+
+        # Embedding setup
+        if self.use_connector:
+            # Freeze original 768-dim LLM item embeddings
+            self.frozen_item_embedding = torch.nn.Embedding.from_pretrained(
+                self.item_embedding_context,
+                freeze=True,
+            ).to(self.device)
+
+            # Create frozen 128-dim LLMInit item embeddings only for user initialization
+            sampled_indices = self.get_sampled_indices()
+
+            self.item_embedding = torch.nn.Embedding(
+                self.n_items,
+                self.latent_dim,
+            ).to(self.device)
+
+            self.item_embedding.weight = nn.Parameter(
+                self.item_embedding_context[:, sampled_indices]
+            )
+
+            # Match Sacha's implementation: this item embedding is only used to initialize users
+            self.item_embedding.weight.requires_grad = False
+
+            # User embeddings are initialized from frozen LLMInit item embeddings,
+            # but user embeddings themselves remain trainable
+            self.user_embedding = torch.nn.Embedding(
+                self.n_users,
+                self.latent_dim,
+            ).to(self.device)
+
+            self.user_embedding.weight = torch.nn.Parameter(
+                torch.sparse.mm(self.sparse_A, self.item_embedding.weight)
+                / self.user_degrees.unsqueeze(dim=1)
+            )
+
+        elif self.emb_selection:
+            sampled_indices = self.get_sampled_indices()
+
+            self.item_embedding = torch.nn.Embedding(
+                self.n_items,
+                self.latent_dim,
+            ).to(self.device)
+
             self.item_embedding.weight = nn.Parameter(self.item_embedding_context[:, sampled_indices])
-            self.user_embedding = torch.nn.Embedding(self.n_users, self.latent_dim)
-        else: 
-            self.item_embedding = torch.nn.Embedding(self.n_items, self.llm_latent_dim)
-            self.item_embedding.weight = torch.nn.Parameter(self.item_embedding_context)
-            self.user_embedding = torch.nn.Embedding(self.n_users, self.llm_latent_dim)
-            
-        # define the user embedding layer
-        self.user_embedding.weight = torch.nn.Parameter(torch.sparse.mm(self.sparse_A, \
-                                            self.item_embedding.weight)/self.user_degrees.unsqueeze(dim=1))
-        
+            self.user_embedding = torch.nn.Embedding(self.n_users, self.latent_dim).to(self.device)
+
+            self.user_embedding.weight = torch.nn.Parameter(
+                torch.sparse.mm(self.sparse_A, self.item_embedding.weight)
+                / self.user_degrees.unsqueeze(dim=1)
+            )
+
+        else:
+            self.item_embedding = torch.nn.Embedding(
+                self.n_items,
+                self.llm_latent_dim,
+            ).to(self.device)
+
+            self.item_embedding.weight = torch.nn.Parameter(
+                self.item_embedding_context
+            )
+
+            self.user_embedding = torch.nn.Embedding(
+                self.n_users,
+                self.llm_latent_dim,
+            ).to(self.device)
+
+            self.user_embedding.weight = torch.nn.Parameter(
+                torch.sparse.mm(self.sparse_A, self.item_embedding.weight)
+                / self.user_degrees.unsqueeze(dim=1)
+            )
+
         # define loss
         self.mf_loss = BPRLoss()
         self.reg_loss = EmbLoss()
@@ -107,15 +167,48 @@ class ContGCN(GeneralRecommender):
         # self.apply(xavier_uniform_initialization)
         self.other_parameter_name = ["restore_user_e", "restore_item_e"]
 
+        # Connector alignment weight for loss function
+        self.connector_align_weight = float(config["connector_align_weight"]) if "connector_align_weight" in config else 0.0
+
+        #residual connection for connector
+        self.use_residual_connector = bool(config["use_residual_connector"]) if "use_residual_connector" in config else False
+        self.residual_connector_alpha = float(config["residual_connector_alpha"]) if "residual_connector_alpha" in config else 0.1
+
+    def get_connector_item_embedding(self):
+        if not self.use_connector:
+            return self.item_embedding.weight
+
+        connector_output = self.embedding_connector(self.frozen_item_embedding.weight)
+
+        if self.use_residual_connector:
+            sampled_indices = self.get_sampled_indices().to(self.device)
+            direct_item_embedding = self.item_embedding_context[:, sampled_indices]
+            return direct_item_embedding + self.residual_connector_alpha * connector_output
+
+        return connector_output
+
+    def get_sampled_indices(self):
+        if self.emb_selection == "rand":
+            sampled_indices = self.random_sample()
+        elif self.emb_selection == "uni":
+            sampled_indices = self.even_sample()
+        elif self.emb_selection == "var":
+            sampled_indices = self.var_sample()
+        else:
+            # Default for connector mode if no --opt is given
+            sampled_indices = self.even_sample()
+
+        return sampled_indices.to(self.item_embedding_context.device)
+
     def even_sample(self):
         # Evenly spaced sampling indices
         step_size = self.llm_latent_dim // self.latent_dim
-        sampled_indices = torch.arange(0, self.llm_latent_dim, step_size)[:self.latent_dim]
+        sampled_indices = torch.arange(0, self.llm_latent_dim, step_size, device=self.item_embedding_context.device)[:self.latent_dim]
         return sampled_indices
     
     def random_sample(self):
         # Uniformly sample indices from LLM latent dimensions
-        sampled_indices = torch.randint(0, self.llm_latent_dim, (self.latent_dim,))
+        sampled_indices = torch.randint(0, self.llm_latent_dim, (self.latent_dim,), device=self.item_embedding_context.device)
         return sampled_indices
 
     def var_sample(self):
@@ -186,7 +279,12 @@ class ContGCN(GeneralRecommender):
             Tensor of the embedding matrix. Shape of [n_items+n_users, embedding_dim]
         """
         user_embeddings = self.user_embedding.weight
-        item_embeddings = self.item_embedding.weight
+
+        if self.use_connector:
+            item_embeddings = self.get_connector_item_embedding()
+        else:
+            item_embeddings = self.item_embedding.weight
+
         ego_embeddings = torch.cat([user_embeddings, item_embeddings], dim=0)
         return ego_embeddings
     
@@ -203,6 +301,7 @@ class ContGCN(GeneralRecommender):
         user_all_embeddings, item_all_embeddings = torch.split(
             lightgcn_all_embeddings, [self.n_users, self.n_items]
         )
+
         return user_all_embeddings, item_all_embeddings
 
     def calculate_loss(self, interaction):
@@ -226,8 +325,14 @@ class ContGCN(GeneralRecommender):
 
         # calculate regularization Loss
         u_ego_embeddings = self.user_embedding(user)
-        pos_ego_embeddings = self.item_embedding(pos_item)
-        neg_ego_embeddings = self.item_embedding(neg_item)
+
+        if self.use_connector:
+            all_item_ego_embeddings = self.get_connector_item_embedding()
+            pos_ego_embeddings = all_item_ego_embeddings[pos_item]
+            neg_ego_embeddings = all_item_ego_embeddings[neg_item]
+        else:
+            pos_ego_embeddings = self.item_embedding(pos_item)
+            neg_ego_embeddings = self.item_embedding(neg_item)
 
         reg_loss = self.reg_loss(
             u_ego_embeddings,
@@ -237,6 +342,20 @@ class ContGCN(GeneralRecommender):
         )
 
         loss = mf_loss + self.reg_weight * reg_loss
+        align_loss = torch.tensor(0.0, device=self.device)
+
+        if self.use_connector and self.connector_align_weight > 0:
+            sampled_indices = self.get_sampled_indices().to(self.device)
+
+            target_item_embedding = self.item_embedding_context[:, sampled_indices]
+            connector_item_embedding = self.embedding_connector(self.item_embedding_context)
+
+            align_loss = torch.nn.functional.mse_loss(
+                connector_item_embedding,
+                target_item_embedding,
+            )
+
+        loss = loss + self.connector_align_weight * align_loss
 
         return loss
     
