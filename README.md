@@ -48,6 +48,20 @@ python run_recbole.py --opt uni -d amazon-beauty -m ContSGL
 ```bash
 python run_recbole.py --opt var -d amazon-beauty -m ContSGCL
 ```
+## Significance tests on results with multiple seeds
+
+We include a script for running paired one-tailed t-tests with Holm correction across multiple seeds. The required Excel files with the seed results are provided in:
+
+results/multiple_seeds/
+
+Each Excel file contains the results for one dataset, with rows for the baseline models and LLMInit variants, and columns for Recall@10 and NDCG@10 across seeds.
+
+Run the significance tests with:
+
+```bash
+python significance_tests.py -d amazon-beauty
+```
+
 ## Fairness and Diversity Evaluation
 We include two scripts for evaluating fairness and diversity from saved recommendation models.
 
