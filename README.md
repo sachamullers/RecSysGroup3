@@ -206,8 +206,9 @@ python eval_phase2_removed_items.py \
 7. `make_final_coldstart_comparison.py`
 8. `extract_results.py`
 
-### Checkpoints Model checkpoint files (`*.pth`) are not committed to this repository because they are too large for normal GitHub storage. 
+### Checkpoints 
 
+Model checkpoint files (`*.pth`) are not committed to this repository because they are too large for normal GitHub storage. 
 The checkpoint files used for the final experiments will be copied to the shared `prjs` project folder. The repository keeps only checkpoint metadata in: ```text results/checkpoints/checkpoint_inventory.csv
 
 ### Preserved Reproducibility Checkpoints
