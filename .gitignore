@@ -4,13 +4,24 @@ dataset/*
 *.pth
 *.pyc
 *.log
-*.sh
 *.out
+*.err
 log/*
 log_tensorboard/*
+logs/
+logs_connector/
+logsfinal/
 saved/
+# keep raw checkpoints ignored, but allow curated reproducibility checkpoints
+!results/checkpoints/
+!results/checkpoints/*.pth
 *.lprof
 recbole/model/general_recommender/contgcn_different_connectors.py
+data_analysis/fairness_eval/recommendations/
+data_analysis/fairness_eval/outputs/
+results/tmp/
 dataset/
 dataset/
 dataset
+*.pth
+results/checkpoints/*.pth

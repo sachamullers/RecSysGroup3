@@ -13,6 +13,16 @@ from pathlib import Path
 import pandas as pd
 import torch
 
+import numpy as np
+
+# Compatibility for old RecBole code with newer NumPy.
+if not hasattr(np, "float"):
+    np.float = float
+if not hasattr(np, "int"):
+    np.int = int
+if not hasattr(np, "bool"):
+    np.bool = bool
+    
 _original_torch_load = torch.load
 
 def _torch_load_compat(*args, **kwargs):
